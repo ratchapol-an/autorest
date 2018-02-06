@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+  <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Authors>Microsoft</Authors>
-    <TargetFramework>net451</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net451</TargetFrameworks>
     <DelaySign>true</DelaySign>
     <AssemblyName>AutoRest.CSharp.Azure.Fluent</AssemblyName>
     <AssemblyOriginatorKeyFile>../../../Tools/MSSharedLibKey.snk</AssemblyOriginatorKeyFile>

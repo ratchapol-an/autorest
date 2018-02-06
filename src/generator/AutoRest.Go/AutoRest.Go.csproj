@@ -5,7 +5,7 @@
     <AssemblyTitle>AutoRest</AssemblyTitle>
     <VersionPrefix>1.0.0-0</VersionPrefix>
     <Authors>Microsoft</Authors>
-    <TargetFramework>net451</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net451</TargetFrameworks>
     <DelaySign>true</DelaySign>
     <AssemblyName>AutoRest.Go</AssemblyName>
     <AssemblyOriginatorKeyFile>../../../Tools/MSSharedLibKey.snk</AssemblyOriginatorKeyFile>

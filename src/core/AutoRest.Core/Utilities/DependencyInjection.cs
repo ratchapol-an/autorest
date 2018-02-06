@@ -7,10 +7,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Remoting.Messaging;
 using System.Threading;
 using AutoRest.Core.Utilities.Collections;
 using AutoRest.Core.Logging;
+
+#if NET451
+using System.Runtime.Remoting.Messaging;
+#endif
 
 namespace AutoRest.Core.Utilities
 {
@@ -94,6 +97,7 @@ namespace AutoRest.Core.Utilities
 #endif
             }
 
+#if NET451
             protected internal static Activation Current
             {
                 get
@@ -109,6 +113,17 @@ namespace AutoRest.Core.Utilities
                     CallContext.LogicalSetData( Slot,value?.Id);
                 }
             }
+#elif NETSTANDARD2_0
+            protected internal static Activation Current
+            {
+                // TODO: Find replacement for CallContext
+                get
+                {
+                    return null;
+                }
+                set { }
+            }
+#endif
 
             protected internal static Activation Default
             {

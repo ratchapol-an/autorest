@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Authors>Agoda, Microsoft</Authors>
-    <TargetFramework>net451</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net451</TargetFrameworks>
     <DelaySign>true</DelaySign>
     <AssemblyName>AutoRest.CSharp.LoadBalanced.Json</AssemblyName>
     <AssemblyOriginatorKeyFile>../../../Tools/MSSharedLibKey.snk</AssemblyOriginatorKeyFile>

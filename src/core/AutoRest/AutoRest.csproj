@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Authors>Microsoft;Azure-SDK</Authors>
-    <TargetFramework>net451</TargetFramework>
+    <TargetFrameworks>netcoreapp2.0;net451</TargetFrameworks>
     <DelaySign>true</DelaySign>
     <AssemblyName>AutoRest</AssemblyName>
     <OutputType>Exe</OutputType>
@@ -21,6 +21,11 @@
     <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
     <GenerateNeutralResourcesLanguageAttribute>false</GenerateNeutralResourcesLanguageAttribute>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -56,7 +61,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\generator\AutoRest.CSharp.LoadBalanced.Legacy\AutoRest.CSharp.LoadBalanced.Legacy.csproj" />
     <ProjectReference Include="..\AutoRest.Core\AutoRest.Core.csproj" />
     <ProjectReference Include="..\..\modeler\AutoRest.Swagger\AutoRest.Swagger.csproj" />
     <ProjectReference Include="..\..\modeler\AutoRest.CompositeSwagger\AutoRest.CompositeSwagger.csproj" />

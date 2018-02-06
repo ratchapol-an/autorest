@@ -4,7 +4,11 @@ namespace AutoRest.TypeScript.SuperAgent.Model
 {
     public class HeaderModel
     {
+#if NET451
         public string GeneratedBy => System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+#elif NETSTANDARD2_0
+        public string GeneratedBy => Environment.UserName;
+#endif
 
         public string GeneratedAt => DateTime.Now.ToString();
 

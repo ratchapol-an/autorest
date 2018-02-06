@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Authors>Microsoft</Authors>
-    <TargetFramework>net451</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net451</TargetFrameworks>
     <DelaySign>true</DelaySign>
     <AssemblyName>AutoRest.CSharp</AssemblyName>
     <AssemblyOriginatorKeyFile>../../../Tools/MSSharedLibKey.snk</AssemblyOriginatorKeyFile>
@@ -22,8 +22,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\core\AutoRest.Extensions\AutoRest.Extensions.csproj" />
     <ProjectReference Include="..\..\core\AutoRest.Core\AutoRest.Core.csproj" />
+    <ProjectReference Include="..\..\core\AutoRest.Extensions\AutoRest.Extensions.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +33,12 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.CodeDom">
+      <Version>4.4.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="..\..\..\tools\Autorest.xproj.targets" />
 
