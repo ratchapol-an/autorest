@@ -51,14 +51,16 @@ namespace AutoRest.Simplify
                 .AddMetadataReference(projectId, Xml)
                 .AddMetadataReference(projectId, Newtonsoft)
                 .AddMetadataReference(projectId, AppDomain.CurrentDomain.GetAssemblies()
-                    .Where(a =>string.Compare(a.GetName().Name, "Microsoft.Rest.ClientRuntime.Azure",StringComparison.OrdinalIgnoreCase) == 0)
+                    .Where(a => string.Compare(a.GetName().Name, "Microsoft.Rest.ClientRuntime.Azure", StringComparison.OrdinalIgnoreCase) == 0)
                     .Select(a => MetadataReference.CreateFromFile(a.Location)).Single())
                 .AddMetadataReference(projectId, AppDomain.CurrentDomain.GetAssemblies()
-                    .Where(a =>string.Compare(a.GetName().Name, "Microsoft.Rest.ClientRuntime",StringComparison.OrdinalIgnoreCase) == 0)
-                    .Select(a => MetadataReference.CreateFromFile(a.Location)).Single())
+                    .Where(a => string.Compare(a.GetName().Name, "Microsoft.Rest.ClientRuntime", StringComparison.OrdinalIgnoreCase) == 0)
+                    .Select(a => MetadataReference.CreateFromFile(a.Location)).Single());
+            /* Temp removal to make it work with .NET core
                 .AddMetadataReference(projectId, AppDomain.CurrentDomain.GetAssemblies()
                     .Where(a => string.Compare(a.GetName().Name, "System", StringComparison.OrdinalIgnoreCase) == 0)
                     .Select(a => MetadataReference.CreateFromFile(a.Location)).Single());
+            */
 
             // Add existing files
             foreach (var file in files.Keys)
