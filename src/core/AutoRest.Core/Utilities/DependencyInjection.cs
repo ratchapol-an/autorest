@@ -10,13 +10,21 @@ using System.Reflection;
 using System.Threading;
 using AutoRest.Core.Utilities.Collections;
 using AutoRest.Core.Logging;
-
-#if NET451
-using System.Runtime.Remoting.Messaging;
-#endif
+using System.Collections.Concurrent;
 
 namespace AutoRest.Core.Utilities
 {
+    public static class CallContext
+    {
+        static ConcurrentDictionary<string, AsyncLocal<object>> state = new ConcurrentDictionary<string, AsyncLocal<object>>();
+        
+        public static void SetData(string name, object data) =>
+            state.GetOrAdd(name, _ => new AsyncLocal<object>()).Value = data;
+        
+        public static object GetData(string name) =>
+            state.TryGetValue(name, out AsyncLocal<object> data) ? data.Value : null;
+    }
+
     public static class DependencyInjection
     {
         internal class Activation : IDisposable
@@ -96,8 +104,8 @@ namespace AutoRest.Core.Utilities
                 }
 #endif
             }
-
-#if NET451
+            
+            /*
             protected internal static Activation Current
             {
                 get
@@ -113,17 +121,24 @@ namespace AutoRest.Core.Utilities
                     CallContext.LogicalSetData( Slot,value?.Id);
                 }
             }
-#elif NETSTANDARD2_0
+            */
+
             protected internal static Activation Current
             {
                 // TODO: Find replacement for CallContext
                 get
                 {
-                    return null;
+                    var id = CallContext.GetData(Slot);
+                    lock (typeof(Activation))
+                    {
+                        return id != null ? Activations[(Guid)id] : null;
+                    }
                 }
-                set { }
+                set
+                {
+                    CallContext.SetData(Slot, value?.Id);
+                }
             }
-#endif
 
             protected internal static Activation Default
             {

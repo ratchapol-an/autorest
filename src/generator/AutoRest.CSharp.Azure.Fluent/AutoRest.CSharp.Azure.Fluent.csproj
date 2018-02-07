@@ -36,6 +36,6 @@
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
-  <Import Project="..\..\..\tools\Autorest.xproj.targets" />
+  <Import Project="..\..\..\Tools\Autorest.xproj.targets" />
 
 </Project>
