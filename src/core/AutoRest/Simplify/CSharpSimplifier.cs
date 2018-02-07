@@ -56,11 +56,18 @@ namespace AutoRest.Simplify
                 .AddMetadataReference(projectId, AppDomain.CurrentDomain.GetAssemblies()
                     .Where(a => string.Compare(a.GetName().Name, "Microsoft.Rest.ClientRuntime", StringComparison.OrdinalIgnoreCase) == 0)
                     .Select(a => MetadataReference.CreateFromFile(a.Location)).Single());
-            /* Temp removal to make it work with .NET core
-                .AddMetadataReference(projectId, AppDomain.CurrentDomain.GetAssemblies()
+
+            // In .NET core, AppDomain.CurrentDomain.GetAssemblies() doesn't contains "System" assembly
+            // Which will cause exception when using .Single() if we don't do checking first
+            var systemAssembly = AppDomain.CurrentDomain.GetAssemblies()
+                .Where(a => string.Compare(a.GetName().Name, "System", StringComparison.OrdinalIgnoreCase) == 0);
+            
+            if (systemAssembly.Count() > 0)
+            {
+                solution = solution.AddMetadataReference(projectId, AppDomain.CurrentDomain.GetAssemblies()
                     .Where(a => string.Compare(a.GetName().Name, "System", StringComparison.OrdinalIgnoreCase) == 0)
                     .Select(a => MetadataReference.CreateFromFile(a.Location)).Single());
-            */
+            }
 
             // Add existing files
             foreach (var file in files.Keys)
