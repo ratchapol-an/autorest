@@ -4,6 +4,7 @@ namespace AutoRest.TypeScript.SuperAgent.Model
 {
     public class ClientMethodModel
     {
+        public string OperationId { get; set; }
 
         public string MethodName { get; set; }
 
@@ -14,6 +15,8 @@ namespace AutoRest.TypeScript.SuperAgent.Model
         public string HttpMethod { get; set; }
 
         public string UrlTemplate { get; set; }
+
+        public string QueryStringTemplate { get; set; }
 
         public string ResponsePromiseTypeName { get; set; }
 
