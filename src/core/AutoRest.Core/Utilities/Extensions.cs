@@ -127,7 +127,7 @@ namespace AutoRest.Core.Utilities
         public static bool IsGenericOf(this Type type, Type genericType)
             => type.IsGenericType && type.GetGenericTypeDefinition() == genericType;
 
-        public static string ToTypesString(this Type[] types) => types?.Aggregate("", (current, type) => $"{current}, {type?.FullName ?? "«null»" }").Trim(',') ?? "";
+        public static string ToTypesString(this Type[] types) => types?.Aggregate("", (current, type) => $"{current}, {type?.FullName ?? "Â«nullÂ»" }").Trim(',') ?? "";
 
         public static Type[] ParameterTypes(this IEnumerable<ParameterInfo> parameterInfos) => parameterInfos?.Select(p => p.ParameterType).ToArray();
 
@@ -427,7 +427,7 @@ namespace AutoRest.Core.Utilities
 
         public static string StripControlCharacters(this string input)
         {
-            return string.IsNullOrWhiteSpace(input) ? input : Regex.Replace(input, @"[\ca-\cz-[\cj\cm\ci]]", string.Empty);
+            return string.IsNullOrWhiteSpace(input) ? input : Regex.Replace(input, @"[\ca-\cz-[\cj\cm\ci]]", string.Empty).Remove('\n').Remove('\r');
         }
 
         public static string Capitalize(this string input)
