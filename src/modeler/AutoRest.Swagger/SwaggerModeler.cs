@@ -27,8 +27,11 @@ namespace AutoRest.Swagger
         internal Dictionary<string, CompositeType> GeneratedTypes = new Dictionary<string, CompositeType>();
         internal Dictionary<Schema, CompositeType> GeneratingTypes = new Dictionary<Schema, CompositeType>();
 
-        public SwaggerModeler() 
+        public bool GenerateEmptyClasses { get; private set; }
+
+        public SwaggerModeler(bool generateEmptyClasses = false) 
         {
+            this.GenerateEmptyClasses = generateEmptyClasses;
             if (Settings.Instance == null)
             {
                 throw new ArgumentNullException("settings");
@@ -276,7 +279,8 @@ namespace AutoRest.Swagger
                         : ServiceDefinition.Definitions[schema.Extends.StripDefinitionPath()];
 
                     if (parent != null &&
-                        !AncestorsHaveProperties(parent.Properties, parent.Extends))
+                        !AncestorsHaveProperties(parent.Properties, parent.Extends) &&
+                        !GenerateEmptyClasses))
                     {
                         throw ErrorManager.CreateError(Resources.InvalidAncestors, schemaName);
                     }
