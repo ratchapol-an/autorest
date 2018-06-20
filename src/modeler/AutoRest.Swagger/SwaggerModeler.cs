@@ -280,7 +280,7 @@ namespace AutoRest.Swagger
 
                     if (parent != null &&
                         !AncestorsHaveProperties(parent.Properties, parent.Extends) &&
-                        !GenerateEmptyClasses))
+                        !GenerateEmptyClasses)
                     {
                         throw ErrorManager.CreateError(Resources.InvalidAncestors, schemaName);
                     }
